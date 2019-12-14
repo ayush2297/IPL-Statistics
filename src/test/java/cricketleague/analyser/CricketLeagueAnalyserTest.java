@@ -1,5 +1,6 @@
 package cricketleague.analyser;
 
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -49,4 +50,24 @@ public class CricketLeagueAnalyserTest {
             Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.FILE_INPUT_ERROR, e.type);
         }
     }
+
+    @Test
+    public void givenCricketLeagueCsvFile_IfReturnsCorrectBatsman_WithHighestBattingAverage_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.loadDataFromCsv(BATTING_CSV);
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOnAvg();
+            IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
+            Assert.assertEquals(83.2,batsmenArray[0].averageScore);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenAcsvFile_WithDashInDataFields_AndReplacesThemWithZero_ShouldReturnTrue() {
+        CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+        leagueAnalyser.prepareFile(BATTING_CSV);
+    }
 }
+

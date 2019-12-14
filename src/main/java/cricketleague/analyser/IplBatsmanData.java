@@ -8,21 +8,21 @@ public class IplBatsmanData {
     public String playerName;
 
     @CsvBindByName (column = "Runs", required = true)
-    public String runsScored;
+    public int runsScored;
 
     @CsvBindByName (column = "HS", required = true)
     public String highScore;
 
     @CsvBindByName (column = "Avg", required = true)
-    public String averageScore;
+    public double averageScore;
 
     @CsvBindByName (column = "SR", required = true)
-    public String strikeRate;
+    public double strikeRate;
 
     @CsvBindByName (column = "100", required = true)
-    public String hundreds;
+    public int hundreds;
 
     @CsvBindByName (column = "6s", required = true)
-    public String sixes;
+    public int sixes;
 
 }
