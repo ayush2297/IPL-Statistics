@@ -39,4 +39,14 @@ public class CricketLeagueAnalyserTest {
             Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.CSV_TO_OBJECT_ERROR, e.type);
         }
     }
+
+    @Test
+    public void givenWrongFile_AsInputToTheFileLoader_ShouldThrowException() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            int numberOfRecords = leagueAnalyser.loadDataFromCsv(INCORRECT_FILE);
+        } catch (CricketLeagueAnalyserException e) {
+            Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.FILE_INPUT_ERROR, e.type);
+        }
+    }
 }
