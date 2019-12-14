@@ -23,6 +23,9 @@ public class CricketLeagueAnalyser {
         } catch (OpenCsvException e) {
             throw new CricketLeagueAnalyserException(e.getMessage(),
                     CricketLeagueAnalyserException.ExceptionType.CSV_TO_OBJECT_ERROR);
+        } catch (RuntimeException e) {
+            throw new CricketLeagueAnalyserException(e.getMessage(),
+                    CricketLeagueAnalyserException.ExceptionType.CSV_TO_OBJECT_ERROR);
         }
     }
 }
