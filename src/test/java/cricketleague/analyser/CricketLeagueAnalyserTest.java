@@ -8,9 +8,13 @@ public class CricketLeagueAnalyserTest {
 
     @Test
     public void givenCricketLeagueCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue() {
-        CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-        int numberOfRecords = leagueAnalyser.loadDataFromCsv(BATTING_CSV);
-        Assert.assertEquals(8,numberOfRecords);
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            int numberOfRecords = leagueAnalyser.loadDataFromCsv(BATTING_CSV);
+            Assert.assertEquals(8, numberOfRecords);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
     }
 
 }
