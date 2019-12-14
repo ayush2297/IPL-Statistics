@@ -25,10 +25,18 @@ public class CricketLeagueAnalyserTest {
         try {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             int numberOfRecords = leagueAnalyser.loadDataFromCsv(BATTING_CSV_WITH_DELIMITER_ERROR);
-            Assert.assertEquals(8, numberOfRecords);
         } catch (CricketLeagueAnalyserException e) {
             Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.CSV_TO_OBJECT_ERROR, e.type);
         }
     }
 
+    @Test
+    public void givenCricketLeagueCsvFile_IfHasHeaderErrorsInIt_ShouldThrowException() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            int numberOfRecords = leagueAnalyser.loadDataFromCsv(BATTING_CSV_WITH_HEADER_ERROR);
+        } catch (CricketLeagueAnalyserException e) {
+            Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.CSV_TO_OBJECT_ERROR, e.type);
+        }
+    }
 }
