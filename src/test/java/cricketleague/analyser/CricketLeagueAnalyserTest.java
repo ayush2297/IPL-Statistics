@@ -4,9 +4,6 @@ import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.nio.file.NoSuchFileException;
-
 public class CricketLeagueAnalyserTest {
     public static final String BATTING_CSV = "./src/test/resources/battingSample.csv";
     public static final String CORRECTED_BATTING_CSV = "./src/test/resources/readableCsv.csv";
@@ -58,8 +55,9 @@ public class CricketLeagueAnalyserTest {
     public void givenAcsvFile_WithDashInDataFields_AndReplacesThemWithZero_ShouldReturnTrue() {
         try {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.prepareFile(BATTING_CSV);
-        } catch (IOException e) {
+            leagueAnalyser.loadDataFromCsv(BATTING_CSV);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
         }
     }
 
@@ -67,9 +65,9 @@ public class CricketLeagueAnalyserTest {
     public void givenAWrongCsvFile_ToProcessTheReplacementFunction_ShouldThrowException() {
         try {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.prepareFile(INCORRECT_FILE);
-        } catch (IOException e) {
-            Assert.assertEquals(NoSuchFileException.class, e.getClass() );
+            leagueAnalyser.loadDataFromCsv(INCORRECT_FILE);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
         }
     }
 
