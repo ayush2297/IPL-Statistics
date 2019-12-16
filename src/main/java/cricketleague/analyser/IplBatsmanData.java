@@ -14,7 +14,7 @@ public class IplBatsmanData {
     public String highScore;
 
     @CsvBindByName (column = "Avg", required = true)
-    public double averageScore;
+    public Double averageScore;
 
     @CsvBindByName (column = "SR", required = true)
     public double strikeRate;

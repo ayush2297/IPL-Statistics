@@ -18,7 +18,8 @@ import static java.util.stream.Collectors.toCollection;
 public class CricketLeagueAnalyser {
     List<IplBatsmanData> playersList = null;
     public int loadDataFromCsv(String csvFilePath) throws CricketLeagueAnalyserException {
-        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
+        this.prepareFile(csvFilePath);
+        try (Reader reader = Files.newBufferedReader(Paths.get("./src/test/resources/readableCsv.csv"))) {
             ICsvBuilder csvBuilder = CsvBuilderFactory.createCsvBuilder();
             Iterator<IplBatsmanData> battingDataIterator = csvBuilder.getCsvFileIterator(reader,IplBatsmanData.class);
             Iterable<IplBatsmanData> censusDataIterable = () -> battingDataIterator;
@@ -38,7 +39,7 @@ public class CricketLeagueAnalyser {
         }
     }
 
-    public void prepareFile(String filePath) {
+    public void prepareFile(String filePath) throws CricketLeagueAnalyserException{
         String searchFor = "-";
         String replaceWith = "00";
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
@@ -47,7 +48,8 @@ public class CricketLeagueAnalyser {
                     .collect(Collectors.toList());
             Files.write(Paths.get("./src/test/resources/trial.csv"), replaced);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CricketLeagueAnalyserException("unable to create file with proper data",
+                    CricketLeagueAnalyserException.ExceptionType.FILE_INPUT_ERROR);
         }
     }
 

@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class CricketLeagueAnalyserTest {
     public static final String BATTING_CSV = "./src/test/resources/battingSample.csv";
+    public static final String CORRECTED_BATTING_CSV = "./src/test/resources/readableCsv.csv";
     public static final String BATTING_CSV_WITH_DELIMITER_ERROR = "./src/test/resources/battingSamplewithDelimiterErr.csv";
     public static final String BATTING_CSV_WITH_HEADER_ERROR = "./src/test/resources/battingSampleWithHeaderErr.csv";
     public static final String INCORRECT_FILE = "./src/test/resources/battingSample1.csv";
@@ -17,7 +18,6 @@ public class CricketLeagueAnalyserTest {
             int numberOfRecords = leagueAnalyser.loadDataFromCsv(BATTING_CSV);
             Assert.assertEquals(8, numberOfRecords);
         } catch (CricketLeagueAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -52,22 +52,35 @@ public class CricketLeagueAnalyserTest {
     }
 
     @Test
+    public void givenAcsvFile_WithDashInDataFields_AndReplacesThemWithZero_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.prepareFile(BATTING_CSV);
+        } catch (CricketLeagueAnalyserException e) {
+        }
+    }
+
+    @Test
+    public void givenAWrongCsvFile_ToProcessTheReplacementFucntion_ShouldThrowException() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.prepareFile(INCORRECT_FILE);
+        } catch (CricketLeagueAnalyserException e) {
+            Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.FILE_INPUT_ERROR, e.type);
+        }
+    }
+
+    @Test
     public void givenCricketLeagueCsvFile_IfReturnsCorrectBatsman_WithHighestBattingAverage_ShouldReturnTrue() {
         try {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             leagueAnalyser.loadDataFromCsv(BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOnAvg();
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
-            Assert.assertEquals(83.2,batsmenArray[0].averageScore);
+            Assert.assertEquals((Double) 83.2,batsmenArray[0].averageScore);
         } catch (CricketLeagueAnalyserException e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void givenAcsvFile_WithDashInDataFields_AndReplacesThemWithZero_ShouldReturnTrue() {
-        CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-        leagueAnalyser.prepareFile(BATTING_CSV);
     }
 }
 
