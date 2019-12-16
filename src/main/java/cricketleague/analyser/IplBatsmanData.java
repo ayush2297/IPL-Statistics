@@ -13,7 +13,6 @@ public class IplBatsmanData {
     @CsvBindByName (column = "Mat", required = true)
     public int matchesPlayed;
 
-
     @CsvBindByName (column = "Inns", required = true)
     public int inningsPlayed;
 
@@ -30,7 +29,7 @@ public class IplBatsmanData {
     public Double averageScore;
 
     @CsvBindByName (column = "BF", required = true)
-    public Double ballsFaced;
+    public int ballsFaced;
 
     @CsvBindByName (column = "SR", required = true)
     public Double strikeRate;
@@ -46,4 +45,6 @@ public class IplBatsmanData {
 
     @CsvBindByName (column = "6s", required = true)
     public int sixes;
+
+
 }

@@ -31,7 +31,11 @@ public class CsvFileLoader {
             playersList = StreamSupport.stream(censusDataIterable.spliterator(), false)
                     .map(IplBatsmanData.class::cast)
                     .collect(Collectors.toList());
-            return playersList;
+            List<IplBatsmanDAO> playersListDAO = playersList
+                    .stream()
+                    .map(player -> new IplBatsmanDAO(player))
+                    .collect(Collectors.toList());;
+            return playersListDAO;
         } catch (IOException e) {
             throw new CricketLeagueAnalyserException(e.getMessage(),
                     CricketLeagueAnalyserException.ExceptionType.FILE_INPUT_ERROR);

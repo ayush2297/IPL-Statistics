@@ -2,12 +2,13 @@ package cricketleague.analyser;
 
 public class IplBatsmanDAO {
 
-    protected String playerName;
-    protected Double averageScore;
-    protected Double strikeRate;
-    protected int fours;
-    protected int sixes;
-    protected IplBatsmanData batsmanData;
+    public String playerName;
+    public Double averageScore;
+    public Double strikeRate;
+    public int ballsFaced;
+    public int fours;
+    public int sixes;
+    public IplBatsmanData batsmanData;
 
     public IplBatsmanDAO() {
     }
@@ -16,6 +17,7 @@ public class IplBatsmanDAO {
         this.playerName = batsmanData.playerName;
         this.averageScore = batsmanData.averageScore;
         this.strikeRate = batsmanData.strikeRate;
+        this.ballsFaced = batsmanData.ballsFaced;
         this.fours = batsmanData.fours;
         this.sixes = batsmanData.sixes;
         this.batsmanData = batsmanData;
@@ -24,4 +26,5 @@ public class IplBatsmanDAO {
     public IplBatsmanData getBatsmanData() {
         return batsmanData;
     }
+
 }

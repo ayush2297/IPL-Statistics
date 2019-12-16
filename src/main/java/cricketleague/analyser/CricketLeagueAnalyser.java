@@ -7,7 +7,7 @@ import static java.util.stream.Collectors.toCollection;
 public class CricketLeagueAnalyser {
 
     public enum CompareBasedOn {
-        AVERAGE, STRIKE_RATE, SIX_AND_FOURS_HIT
+        AVERAGE, STRIKE_RATE, SIX_AND_FOURS_HIT, STRIKE_RATE_WITH_6sn4s
     }
     List<IplBatsmanDAO> playersList;
 
@@ -17,17 +17,15 @@ public class CricketLeagueAnalyser {
 
     public int loadDataFromCsv(String csvFilePath) throws CricketLeagueAnalyserException {
         CsvFileLoader csvFileLoader = new CsvFileLoader();
-        List<IplBatsmanData> tempList = csvFileLoader.loadCsvAsList(csvFilePath);
-        for (IplBatsmanData batsmanData: tempList) {
-            this.playersList.add(new IplBatsmanDAO(batsmanData));
-        }
+        playersList = csvFileLoader.loadCsvAsList(csvFilePath);
         return playersList.size();
     }
 
     public String sortBasedOn(CompareBasedOn comparingField) {
+        MyComparators compareWith = new MyComparators();
         ArrayList<IplBatsmanDAO> sortedList = this.playersList
                         .stream()
-                        .sorted(MyComparators.comparators.get(comparingField))
+                        .sorted(compareWith.comparators.get(comparingField))
                         .collect(toCollection(ArrayList::new));
         ArrayList<IplBatsmanData> sortedDtoList = new ArrayList<>();
         for (IplBatsmanDAO batsmanDAO: sortedList) {
