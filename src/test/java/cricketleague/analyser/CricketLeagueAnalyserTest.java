@@ -63,7 +63,7 @@ public class CricketLeagueAnalyserTest {
     }
 
     @Test
-    public void givenAWrongCsvFile_ToProcessTheReplacementFucntion_ShouldThrowException() {
+    public void givenAWrongCsvFile_ToProcessTheReplacementFunction_ShouldThrowException() {
         try {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             leagueAnalyser.prepareFile(INCORRECT_FILE);
@@ -79,7 +79,20 @@ public class CricketLeagueAnalyserTest {
             leagueAnalyser.loadDataFromCsv(BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOnAvg();
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
-            Assert.assertEquals((Double) 83.2,batsmenArray[0].averageScore);
+            Assert.assertEquals("MS Dhoni",batsmenArray[0].playerName);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenCricketLeagueCsvFile_AfterSortingBasedOnStrikeRate_IfReturnsCorrectBatsman_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.loadDataFromCsv(BATTING_CSV);
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOnStrikeRate();
+            IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
+            Assert.assertEquals("Ishant Sharma",batsmenArray[0].playerName);
         } catch (CricketLeagueAnalyserException e) {
             e.printStackTrace();
         }

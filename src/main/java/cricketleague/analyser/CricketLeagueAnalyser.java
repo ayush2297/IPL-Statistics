@@ -70,4 +70,13 @@ public class CricketLeagueAnalyser {
         String sortedString = new Gson().toJson(sortedList);
         return sortedString;
     }
+
+    public String sortBasedOnStrikeRate() {
+        ArrayList<IplBatsmanData> sortedList = this.playersList
+                .stream()
+                .sorted(Comparator.comparing(iplBatsmanData -> iplBatsmanData.strikeRate,Comparator.reverseOrder()))
+                .collect(toCollection(ArrayList::new));
+        String sortedString = new Gson().toJson(sortedList);
+        return sortedString;
+    }
 }

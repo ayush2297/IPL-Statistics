@@ -33,7 +33,7 @@ public class IplBatsmanData {
     public Double ballsFaced;
 
     @CsvBindByName (column = "SR", required = true)
-    public double strikeRate;
+    public Double strikeRate;
 
     @CsvBindByName (column = "100", required = true)
     public int hundreds;
