@@ -2,14 +2,12 @@ package cricketleague.analyser;
 
 import com.myopencsv.CsvBuilderFactory;
 import com.myopencsv.ICsvBuilder;
-import com.myopencsv.OpenCsvBuilder;
 import com.myopencsv.OpenCsvException;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,8 +24,8 @@ public class CsvFileLoader {
                     CricketLeagueAnalyserException.ExceptionType.FILE_INPUT_ERROR);
         }
         try (Reader reader = Files.newBufferedReader(Paths.get("./src/test/resources/readableCsv.csv"))) {
-            List<IplBatsmanData> playersList = new ArrayList<>();
-            ICsvBuilder csvBuilder = (OpenCsvBuilder) CsvBuilderFactory.createCsvBuilder();
+            List<IplBatsmanData> playersList;
+            ICsvBuilder csvBuilder = CsvBuilderFactory.createCsvBuilder();
             Iterator<IplBatsmanData> battingDataIterator = csvBuilder.getCsvFileIterator(reader,IplBatsmanData.class);
             Iterable<IplBatsmanData> censusDataIterable = () -> battingDataIterator;
             playersList = StreamSupport.stream(censusDataIterable.spliterator(), false)
