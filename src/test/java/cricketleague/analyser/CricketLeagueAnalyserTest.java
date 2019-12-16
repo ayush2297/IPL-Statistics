@@ -6,7 +6,6 @@ import org.junit.Test;
 
 public class CricketLeagueAnalyserTest {
     public static final String BATTING_CSV = "./src/test/resources/battingSample.csv";
-    public static final String CORRECTED_BATTING_CSV = "./src/test/resources/readableCsv.csv";
     public static final String BATTING_CSV_WITH_DELIMITER_ERROR = "./src/test/resources/battingSamplewithDelimiterErr.csv";
     public static final String BATTING_CSV_WITH_HEADER_ERROR = "./src/test/resources/battingSampleWithHeaderErr.csv";
     public static final String INCORRECT_FILE = "./src/test/resources/battingSample1.csv";
@@ -85,13 +84,26 @@ public class CricketLeagueAnalyserTest {
     }
 
     @Test
+    public void givenCricketLeagueCsvFile_AfterSortingBasedOnBoundariesHit_IfReturnsCorrectBatsman_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.loadDataFromCsv(BATTING_CSV);
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOn(CricketLeagueAnalyser.CompareBasedOn.AVERAGE);
+            IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
+            Assert.assertEquals("MS Dhoni",batsmenArray[0].playerName);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void givenCricketLeagueCsvFile_AfterSortingBasedOnStrikeRate_IfReturnsCorrectBatsman_ShouldReturnTrue() {
         try {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             leagueAnalyser.loadDataFromCsv(BATTING_CSV);
-            String sortBasedOnAvg = leagueAnalyser.sortBasedOn(CricketLeagueAnalyser.CompareBasedOn.STRIKE_RATE);
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOn(CricketLeagueAnalyser.CompareBasedOn.SIX_AND_FOURS_HIT);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
-            Assert.assertEquals("Ishant Sharma",batsmenArray[0].playerName);
+            Assert.assertEquals("Andre Russell",batsmenArray[0].playerName);
         } catch (CricketLeagueAnalyserException e) {
             e.printStackTrace();
         }
