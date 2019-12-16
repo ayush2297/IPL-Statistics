@@ -10,6 +10,7 @@ import org.omg.IOP.Encoding;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,6 +20,17 @@ import java.util.stream.StreamSupport;
 import static java.util.stream.Collectors.toCollection;
 
 public class CricketLeagueAnalyser {
+
+    public enum CompareBasedOn {
+        AVERAGE, STRIKE_RATE
+    }
+    CompareBasedOn compareType;
+
+    Map<Enum,Comparator<IplBatsmanData>> comparators = new HashMap<Enum, Comparator<IplBatsmanData>>() {{
+        put(CompareBasedOn.STRIKE_RATE, Comparator.comparing(iplBatsmanData -> iplBatsmanData.strikeRate,Comparator.reverseOrder()));
+        put(CompareBasedOn.AVERAGE, Comparator.comparing(iplBatsmanData -> iplBatsmanData.averageScore,Comparator.reverseOrder()));
+    }};
+
     List<IplBatsmanData> playersList = null;
     public int loadDataFromCsv(String csvFilePath) throws CricketLeagueAnalyserException {
         try {
@@ -57,26 +69,18 @@ public class CricketLeagueAnalyser {
                     .map(line-> line.replaceAll(searchFor, replaceWith))
                     .collect(Collectors.toList());
             Files.write(Paths.get("./src/test/resources/readableCsv.csv"), replaced);
-        } catch (IOException e) {
+        } catch (NoSuchFileException e) {
             throw e;
         }
     }
 
-    public String sortBasedOnAvg() {
+    public String sortBasedOn(CompareBasedOn comparingField) {
         ArrayList<IplBatsmanData> sortedList = this.playersList
                         .stream()
-                        .sorted(Comparator.comparing(iplBatsmanData -> iplBatsmanData.averageScore,Comparator.reverseOrder()))
+                        .sorted(comparators.get(comparingField))
                         .collect(toCollection(ArrayList::new));
         String sortedString = new Gson().toJson(sortedList);
         return sortedString;
     }
 
-    public String sortBasedOnStrikeRate() {
-        ArrayList<IplBatsmanData> sortedList = this.playersList
-                .stream()
-                .sorted(Comparator.comparing(iplBatsmanData -> iplBatsmanData.strikeRate,Comparator.reverseOrder()))
-                .collect(toCollection(ArrayList::new));
-        String sortedString = new Gson().toJson(sortedList);
-        return sortedString;
-    }
 }
