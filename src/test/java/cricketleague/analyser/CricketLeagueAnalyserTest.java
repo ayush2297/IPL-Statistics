@@ -73,7 +73,7 @@ public class CricketLeagueAnalyserTest {
     }
 
     @Test
-    public void givenCricketLeagueCsvFile_IfReturnsCorrectBatsman_WithHighestBattingAverage_ShouldReturnTrue() {
+    public void givenCricketLeagueCsvFile_AfterSortingBasedOnBattingAverage_IfReturnsCorrectBatsman_ShouldReturnTrue() {
         try {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             leagueAnalyser.loadDataFromCsv(BATTING_CSV);
