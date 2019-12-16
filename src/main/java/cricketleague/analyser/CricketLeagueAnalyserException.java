@@ -7,9 +7,6 @@ public class CricketLeagueAnalyserException extends Exception{
 
     public ExceptionType type;
 
-    public CricketLeagueAnalyserException() {
-    }
-
     public CricketLeagueAnalyserException(String message, ExceptionType type) {
         super(message);
         this.type = type;

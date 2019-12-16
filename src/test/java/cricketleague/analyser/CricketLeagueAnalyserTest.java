@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class CricketLeagueAnalyserTest {
     public static final String BATTING_CSV = "./src/test/resources/battingSample.csv";
     public static final String CORRECTED_BATTING_CSV = "./src/test/resources/readableCsv.csv";
@@ -56,7 +58,7 @@ public class CricketLeagueAnalyserTest {
         try {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             leagueAnalyser.prepareFile(BATTING_CSV);
-        } catch (CricketLeagueAnalyserException e) {
+        } catch (IOException e) {
         }
     }
 
@@ -65,8 +67,8 @@ public class CricketLeagueAnalyserTest {
         try {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             leagueAnalyser.prepareFile(INCORRECT_FILE);
-        } catch (CricketLeagueAnalyserException e) {
-            Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.FILE_INPUT_ERROR, e.type);
+        } catch (IOException e) {
+            Assert.assertEquals(IOException.class, e.getClass() );
         }
     }
 
