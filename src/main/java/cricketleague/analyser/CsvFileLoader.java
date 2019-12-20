@@ -16,9 +16,9 @@ import java.util.stream.StreamSupport;
 
 public class CsvFileLoader {
 
-    public List loadCsvAsList (String csvFilePath) throws CricketLeagueAnalyserException {
+    public List loadCsvAsList(String csvFilePath, String replaceWrongValuesWith) throws CricketLeagueAnalyserException {
         try {
-            this.prepareFile(csvFilePath);
+            this.prepareFile(csvFilePath,replaceWrongValuesWith);
         } catch (IOException e) {
             throw new CricketLeagueAnalyserException(e.getMessage(),
                     CricketLeagueAnalyserException.ExceptionType.FILE_INPUT_ERROR);
@@ -45,17 +45,14 @@ public class CsvFileLoader {
         } catch (RuntimeException e) {
             throw new CricketLeagueAnalyserException(e.getMessage(),
                     CricketLeagueAnalyserException.ExceptionType.CSV_TO_OBJECT_ERROR);
-        } finally {
-
         }
     }
 
-    private void prepareFile(String filePath) throws IOException {
+    private void prepareFile(String filePath, String replaceWrongValuesWith) throws IOException {
         String searchFor = "-";
-        String replaceWith = "00";
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
             List<String> replaced = lines
-                    .map(line-> line.replaceAll(searchFor, replaceWith))
+                    .map(line-> line.replaceAll(searchFor, replaceWrongValuesWith))
                     .collect(Collectors.toList());
             Files.write(Paths.get("./src/test/resources/readableCsv.csv"), replaced);
         } catch (NoSuchFileException e) {

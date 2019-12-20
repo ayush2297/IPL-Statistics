@@ -16,9 +16,9 @@ public class CricketLeagueAnalyser {
         this.playersList = new ArrayList<>();
     }
 
-    public int loadDataFromCsv(String csvFilePath) throws CricketLeagueAnalyserException {
+    public int loadDataFromCsv(String csvFilePath, String replaceWrongValuesWith) throws CricketLeagueAnalyserException {
         CsvFileLoader csvFileLoader = new CsvFileLoader();
-        playersList = csvFileLoader.loadCsvAsList(csvFilePath);
+        playersList = csvFileLoader.loadCsvAsList(csvFilePath,replaceWrongValuesWith);
         return playersList.size();
     }
 
