@@ -121,5 +121,31 @@ public class CricketLeagueAnalyserTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenCricketLeagueCsvFile_AfterSortingBasedOnAvg_AndThenStrikeRate_IfReturnsCorrectBatsman_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.loadDataFromCsv(BATTING_CSV);
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOn(CricketLeagueAnalyser.CompareBasedOn.AVG_THEN_STRIKERATE);
+            IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
+            Assert.assertEquals("MS Dhoni",batsmenArray[0].playerName);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenCricketLeagueCsvFile_AfterSortingBasedOnRuns_AndThenAvg_IfReturnsCorrectBatsman_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.loadDataFromCsv(BATTING_CSV);
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOn(CricketLeagueAnalyser.CompareBasedOn.RUNS_THEN_AVG);
+            IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
+            Assert.assertEquals("David Warner",batsmenArray[0].playerName);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

@@ -7,7 +7,8 @@ import static java.util.stream.Collectors.toCollection;
 public class CricketLeagueAnalyser {
 
     public enum CompareBasedOn {
-        AVERAGE, STRIKE_RATE, SIX_AND_FOURS_HIT, STRIKE_RATE_WITH_6sn4s
+        AVERAGE, STRIKE_RATE, SIX_AND_FOURS_HIT, STRIKE_RATE_WITH_6sn4s,
+        AVG_THEN_STRIKERATE, RUNS_THEN_AVG
     }
     List<IplBatsmanDAO> playersList;
 
@@ -21,11 +22,13 @@ public class CricketLeagueAnalyser {
         return playersList.size();
     }
 
-    public String sortBasedOn(CompareBasedOn comparingField) {
+    public String sortBasedOn(CompareBasedOn... comparingField) {
         MyComparators compareWith = new MyComparators();
+
+        Comparator<IplBatsmanDAO> comparator = compareWith.comparators.get(comparingField[0]).thenComparing(compareWith.comparators.get(comparingField[0]));
         ArrayList<IplBatsmanDAO> sortedList = this.playersList
                         .stream()
-                        .sorted(compareWith.comparators.get(comparingField))
+                        .sorted(comparator)
                         .collect(toCollection(ArrayList::new));
         ArrayList<IplBatsmanData> sortedDtoList = new ArrayList<>();
         for (IplBatsmanDAO batsmanDAO: sortedList) {

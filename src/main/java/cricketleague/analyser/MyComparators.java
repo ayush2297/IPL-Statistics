@@ -21,6 +21,9 @@ public class MyComparators {
                     ((((iplBatsmanDAO.batsmanData.fours*4)+(iplBatsmanDAO.batsmanData.sixes*6))*100)
                             /iplBatsmanDAO.batsmanData.ballsFaced), Comparator.reverseOrder());
 
+    Comparator<IplBatsmanDAO> avg =Comparator.comparing(iplBatsmanDAO -> iplBatsmanDAO.averageScore,Comparator.reverseOrder());
+    Comparator<IplBatsmanDAO> avgWithStrikeRate = avg.thenComparing(iplBatsmanDAO -> iplBatsmanDAO.averageScore,Comparator.reverseOrder());
+
     public Map<Enum, Comparator<IplBatsmanDAO>> comparators = new HashMap<>();
 
     public MyComparators() {
@@ -32,5 +35,7 @@ public class MyComparators {
                 this.sixesAndFoursComparator);
         this.comparators.put(CricketLeagueAnalyser.CompareBasedOn.STRIKE_RATE_WITH_6sn4s,
                 this.strikeRateWith6n4sComparator);
+        this.comparators.put(CricketLeagueAnalyser.CompareBasedOn.AVG_THEN_STRIKERATE,
+                this.avgWithStrikeRate);
     }
 }
