@@ -22,7 +22,10 @@ public class MyComparators {
                             /iplBatsmanDAO.batsmanData.ballsFaced), Comparator.reverseOrder());
 
     Comparator<IplBatsmanDAO> avg =Comparator.comparing(iplBatsmanDAO -> iplBatsmanDAO.averageScore,Comparator.reverseOrder());
-    Comparator<IplBatsmanDAO> avgWithStrikeRate = avg.thenComparing(iplBatsmanDAO -> iplBatsmanDAO.averageScore,Comparator.reverseOrder());
+    Comparator<IplBatsmanDAO> avgWithStrikeRateComparator = avg.thenComparing(iplBatsmanDAO -> iplBatsmanDAO.strikeRate,Comparator.reverseOrder());
+
+    Comparator<IplBatsmanDAO> runs =Comparator.comparing(iplBatsmanDAO -> iplBatsmanDAO.runsScored,Comparator.reverseOrder());
+    Comparator<IplBatsmanDAO> runsThenAverageComparator = runs.thenComparing(iplBatsmanDAO -> iplBatsmanDAO.averageScore,Comparator.reverseOrder());
 
     public Map<Enum, Comparator<IplBatsmanDAO>> comparators = new HashMap<>();
 
@@ -36,6 +39,8 @@ public class MyComparators {
         this.comparators.put(CricketLeagueAnalyser.CompareBasedOn.STRIKE_RATE_WITH_6sn4s,
                 this.strikeRateWith6n4sComparator);
         this.comparators.put(CricketLeagueAnalyser.CompareBasedOn.AVG_THEN_STRIKERATE,
-                this.avgWithStrikeRate);
+                this.avgWithStrikeRateComparator);
+        this.comparators.put(CricketLeagueAnalyser.CompareBasedOn.RUNS_THEN_AVG,
+                this.runsThenAverageComparator);
     }
 }

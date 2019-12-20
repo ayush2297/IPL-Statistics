@@ -22,13 +22,11 @@ public class CricketLeagueAnalyser {
         return playersList.size();
     }
 
-    public String sortBasedOn(CompareBasedOn... comparingField) {
+    public String sortBasedOn(CompareBasedOn comparingField) {
         MyComparators compareWith = new MyComparators();
-
-        Comparator<IplBatsmanDAO> comparator = compareWith.comparators.get(comparingField[0]).thenComparing(compareWith.comparators.get(comparingField[0]));
         ArrayList<IplBatsmanDAO> sortedList = this.playersList
                         .stream()
-                        .sorted(comparator)
+                        .sorted(compareWith.comparators.get(comparingField))
                         .collect(toCollection(ArrayList::new));
         ArrayList<IplBatsmanData> sortedDtoList = new ArrayList<>();
         for (IplBatsmanDAO batsmanDAO: sortedList) {
