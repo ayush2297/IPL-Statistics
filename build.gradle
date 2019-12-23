@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile (files('/home/admin97/Ayush/github/myOpenCsv/out/artifacts/myOpenCsv_main_jar/myOpenCsv.main.jar'))
+    compile (files('/home/admin1/AyushsCensusAnalyzer/IPL-Statistics/src/main/resources/myOpenCsv.main.jar'))
+    compile "com.opencsv:opencsv:4.0"
     compile 'com.google.code.gson:gson:2.2.+'
 }
