@@ -22,10 +22,10 @@ public class CricketLeagueAnalyser {
         this.playersList = new HashMap<>();
     }
 
-    public int loadDataFromCsv(PlayerType playerType, String csvFilePath, String replaceWrongValuesWith) throws CricketLeagueAnalyserException {
+    public int loadDataFromCsv(PlayerType playerType, String... csvFilePath) throws CricketLeagueAnalyserException {
         this.playerType = playerType;
         CsvFileLoader csvFileLoader = FileLoaderFactory.getAdapter(playerType);
-        this.playersList = csvFileLoader.loadCsv(csvFilePath, replaceWrongValuesWith);
+        this.playersList = csvFileLoader.loadCsv(csvFilePath);
         return playersList.size();
     }
 
@@ -36,8 +36,8 @@ public class CricketLeagueAnalyser {
                         .sorted(compareWith.comparators.get(comparingField))
                         .collect(toCollection(ArrayList::new));
         ArrayList sortedDtoList = new ArrayList<>();
-        for (IplPlayerDAO bowlerDao : sortedList) {
-            sortedDtoList.add(this.playerType.getDto(bowlerDao));
+        for (IplPlayerDAO playerDAO : sortedList) {
+            sortedDtoList.add(this.playerType.getDto(playerDAO));
         }
         String sortedString = new Gson().toJson(sortedDtoList);
         return sortedString;

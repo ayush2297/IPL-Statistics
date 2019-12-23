@@ -19,7 +19,7 @@ public class IplBowlerData {
     public double oversBowled;
 
     @CsvBindByName (column = "Runs", required = true)
-    public int runsScored;
+    public int runsGiven;
 
     @CsvBindByName (column = "Wkts", required = true)
     public int wicketsTaken;
@@ -34,7 +34,7 @@ public class IplBowlerData {
     public double economyRate;
 
     @CsvBindByName (column = "SR", required = true)
-    public double strikeRate;
+    public double bowlingStrikeRate;
 
     @CsvBindByName (column = "4w", required = true)
     public double fourWickets;

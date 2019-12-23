@@ -10,6 +10,8 @@ public class FileLoaderFactory {
                 return new BatsmenFileLoader();
             case BOWLER:
                 return new BowlerFileLoader();
+            case BOTH:
+                return new LoadBowlingAndBattingData();
             default:
                 throw new CricketLeagueAnalyserException("Incorrect Country entered",
                         CricketLeagueAnalyserException.ExceptionType.INCORRECT_PLAYER_TYPE);

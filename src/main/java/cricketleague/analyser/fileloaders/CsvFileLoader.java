@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 public abstract class CsvFileLoader {
 
-    public abstract Map<String, IplPlayerDAO> loadCsv(String csvFilePath, String replaceMissingValuesWith) throws CricketLeagueAnalyserException;
+    public abstract Map<String, IplPlayerDAO> loadCsv(String... csvFilePath) throws CricketLeagueAnalyserException;
     Reader reader = null;
     public <E> Iterable<E> getCsvIterable(Class<E> clazz, String csvFilePath, String replaceWrongValuesWith) throws CricketLeagueAnalyserException {
         try {

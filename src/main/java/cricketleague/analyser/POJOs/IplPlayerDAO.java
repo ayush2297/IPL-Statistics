@@ -4,20 +4,20 @@ public class IplPlayerDAO {
 
     public String playerName;
     public int runsScored=0;
-    public Double averageScore=0.0;
+    public Double battingAverage =0.0;
     public Double battingStrikeRate=0.0;
     public int ballsFaced=0;
     public int fours=0;
     public int sixes=0;
     public double bowlingAverage=99;
-    public double bowlingStrikeRate;
-    public double bowlerEconomy;
-    public double bowler5Wickets;
-    public int wicketsTaken;
-    public double bowler4Wickets;
-    public int ballsBowled;
+    public double bowlingStrikeRate=99;
+    public double bowlerEconomy=99;
+    public double bowler5Wickets=0;
+    public int wicketsTaken=0;
+    public double bowler4Wickets=0;
+    public int ballsBowled=999;
     public IplBatsmanData batsmanData;
-    public IplBowlerData bowlerDto;
+    public IplBowlerData bowlerData;
 
     public IplPlayerDAO() {
     }
@@ -25,8 +25,8 @@ public class IplPlayerDAO {
     public IplPlayerDAO(IplBatsmanData batsmanData) {
         this.playerName = batsmanData.playerName;
         this.runsScored = batsmanData.runsScored;
-        this.averageScore = batsmanData.averageScore;
-        this.battingStrikeRate = batsmanData.strikeRate;
+        this.battingAverage = batsmanData.battingAverage;
+        this.battingStrikeRate = batsmanData.battingStrikeRate;
         this.ballsFaced = batsmanData.ballsFaced;
         this.fours = batsmanData.fours;
         this.sixes = batsmanData.sixes;
@@ -36,20 +36,20 @@ public class IplPlayerDAO {
     public IplPlayerDAO(IplBowlerData iplBowlerData) {
         this.playerName = iplBowlerData.playerName;
         this.bowlingAverage = iplBowlerData.averageRunsGiven;
-        this.bowlingStrikeRate = iplBowlerData.strikeRate;
+        this.bowlingStrikeRate = iplBowlerData.bowlingStrikeRate;
         this.bowlerEconomy = iplBowlerData.economyRate;
         this.bowler4Wickets = iplBowlerData.fourWickets;
         this.bowler5Wickets = iplBowlerData.fiveWickets;
         this.wicketsTaken = iplBowlerData.wicketsTaken;
         this.ballsBowled = (int) (Math.round(iplBowlerData.oversBowled)*6 + (iplBowlerData.oversBowled%6));
-        this.bowlerDto = iplBowlerData;
+        this.bowlerData = iplBowlerData;
     }
 
     public IplBatsmanData getBatsmanData() {
         return batsmanData;
     }
 
-    public IplBowlerData getBowlerDto() {
-         return bowlerDto;
+    public IplBowlerData getBowlerData() {
+         return bowlerData;
     }
 }

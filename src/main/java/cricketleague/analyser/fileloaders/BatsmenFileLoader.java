@@ -1,27 +1,25 @@
 package cricketleague.analyser.fileloaders;
 
-import cricketleague.analyser.CricketLeagueAnalyser;
 import cricketleague.analyser.POJOs.IplPlayerDAO;
 import cricketleague.analyser.POJOs.IplBatsmanData;
 import cricketleague.analyser.analyseressentials.CricketLeagueAnalyserException;
-
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
 public class BatsmenFileLoader extends CsvFileLoader {
 
-    CricketLeagueAnalyser analyser = new CricketLeagueAnalyser();
     Map<String, IplPlayerDAO> batsmenList = null;
 
     public BatsmenFileLoader() {
-        this.batsmenList = analyser.playersList;
+        this.batsmenList = new HashMap<>();
     }
 
     @Override
-    public Map<String, IplPlayerDAO> loadCsv(String csvFilePath, String replaceMissingValuesWith) throws CricketLeagueAnalyserException {
+    public Map<String, IplPlayerDAO> loadCsv(String... csvFilePath) throws CricketLeagueAnalyserException {
         try {
-            Iterable<IplBatsmanData> csvIterable = super.getCsvIterable(IplBatsmanData.class, csvFilePath, replaceMissingValuesWith);
+            Iterable<IplBatsmanData> csvIterable = super.getCsvIterable(IplBatsmanData.class, csvFilePath[0], "00");
             StreamSupport.stream(csvIterable.spliterator(),false)
                         .forEach(batsmanData -> batsmenList.put(batsmanData.playerName,new IplPlayerDAO(batsmanData)));
             super.closeReader();

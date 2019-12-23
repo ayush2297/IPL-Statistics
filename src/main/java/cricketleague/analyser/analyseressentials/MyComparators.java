@@ -1,6 +1,7 @@
 package cricketleague.analyser.analyseressentials;
 
 import cricketleague.analyser.POJOs.IplPlayerDAO;
+
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,27 +14,27 @@ public class MyComparators {
         BOWLING_ECONOMY, BOWLING_SR_WITH4WAND5W, BOWLING_SR_WITH_AVG,
         BOWLING_MOSTWKTS_WITH_AVG, BEST_BATTING_AND_BOWLING_AVG
     }
-    
+
     Comparator<IplPlayerDAO> strikeRateComparator =
             Comparator.comparing(iplBatsmanDAO -> iplBatsmanDAO.battingStrikeRate, Comparator.reverseOrder());
 
     Comparator<IplPlayerDAO> runsAverageComparator =
-            Comparator.comparing(iplBatsmanDAO -> iplBatsmanDAO.averageScore, Comparator.reverseOrder());
+            Comparator.comparing(iplBatsmanDAO -> iplBatsmanDAO.battingAverage, Comparator.reverseOrder());
 
     Comparator<IplPlayerDAO> sixesAndFoursComparator =
-            Comparator.comparing(iplBatsmanDAO -> (iplBatsmanDAO.sixes*6)+(iplBatsmanDAO.fours*4)
-                    ,Comparator.reverseOrder());
+            Comparator.comparing(iplBatsmanDAO -> (iplBatsmanDAO.sixes * 6) + (iplBatsmanDAO.fours * 4)
+                    , Comparator.reverseOrder());
 
     Comparator<IplPlayerDAO> strikeRateWith6n4sComparator =
             Comparator.comparing(iplBatsmanDAO ->
-                    ((((iplBatsmanDAO.batsmanData.fours*4)+(iplBatsmanDAO.batsmanData.sixes*6))*100)
-                            /iplBatsmanDAO.batsmanData.ballsFaced), Comparator.reverseOrder());
+                    ((((iplBatsmanDAO.batsmanData.fours * 4) + (iplBatsmanDAO.batsmanData.sixes * 6)) * 100)
+                            / iplBatsmanDAO.batsmanData.ballsFaced), Comparator.reverseOrder());
 
-    Comparator<IplPlayerDAO> avg =Comparator.comparing(iplBatsmanDAO -> iplBatsmanDAO.averageScore,Comparator.reverseOrder());
-    Comparator<IplPlayerDAO> avgWithStrikeRateComparator = avg.thenComparing(iplBatsmanDAO -> iplBatsmanDAO.battingStrikeRate,Comparator.reverseOrder());
+    Comparator<IplPlayerDAO> avg = Comparator.comparing(iplBatsmanDAO -> iplBatsmanDAO.battingAverage, Comparator.reverseOrder());
+    Comparator<IplPlayerDAO> avgWithStrikeRateComparator = avg.thenComparing(iplBatsmanDAO -> iplBatsmanDAO.battingStrikeRate, Comparator.reverseOrder());
 
-    Comparator<IplPlayerDAO> runs =Comparator.comparing(iplBatsmanDAO -> iplBatsmanDAO.runsScored,Comparator.reverseOrder());
-    Comparator<IplPlayerDAO> runsThenAverageComparator = runs.thenComparing(iplBatsmanDAO -> iplBatsmanDAO.averageScore,Comparator.reverseOrder());
+    Comparator<IplPlayerDAO> runs = Comparator.comparing(iplBatsmanDAO -> iplBatsmanDAO.runsScored, Comparator.reverseOrder());
+    Comparator<IplPlayerDAO> runsThenAverageComparator = runs.thenComparing(iplBatsmanDAO -> iplBatsmanDAO.battingAverage, Comparator.reverseOrder());
 
     Comparator<IplPlayerDAO> bowlerAvg = Comparator.comparing(iplPlayerDAO -> iplPlayerDAO.bowlingAverage);
 
@@ -42,16 +43,16 @@ public class MyComparators {
     Comparator<IplPlayerDAO> bowlingEconomy = Comparator.comparing(iplPlayerDAO -> iplPlayerDAO.bowlerEconomy);
 
     Comparator<IplPlayerDAO> bowlingSRWith4n5W = Comparator.comparing(iplPlayerDAO -> ((
-            (iplPlayerDAO.bowler4Wickets*4)+(iplPlayerDAO.bowler5Wickets*5))/iplPlayerDAO.ballsBowled),Comparator.reverseOrder());
+            (iplPlayerDAO.bowler4Wickets * 4) + (iplPlayerDAO.bowler5Wickets * 5)) / iplPlayerDAO.ballsBowled), Comparator.reverseOrder());
 
     Comparator<IplPlayerDAO> bowlingSRWithAvg = Comparator.comparing(iplPlayerDAO ->
             (iplPlayerDAO.bowlingAverage + iplPlayerDAO.bowlingStrikeRate));
 
     Comparator<IplPlayerDAO> bowlingWktsWithAvg = Comparator.comparing(iplPlayerDAO ->
-            (iplPlayerDAO.wicketsTaken/iplPlayerDAO.bowlingAverage),Comparator.reverseOrder());
+            (iplPlayerDAO.wicketsTaken / iplPlayerDAO.bowlingAverage), Comparator.reverseOrder());
 
     Comparator<IplPlayerDAO> bestAllRounder = Comparator.comparing(iplPlayerDAO ->
-            (iplPlayerDAO.averageScore/iplPlayerDAO.bowlingAverage),Comparator.reverseOrder());
+            (iplPlayerDAO.battingAverage / iplPlayerDAO.bowlingAverage), Comparator.reverseOrder());
 
     public Map<Enum, Comparator<IplPlayerDAO>> comparators = new HashMap<>();
 
@@ -80,6 +81,8 @@ public class MyComparators {
                 this.bowlingSRWithAvg);
         this.comparators.put(CompareBasedOn.BOWLING_MOSTWKTS_WITH_AVG,
                 this.bowlingWktsWithAvg);
+        this.comparators.put(CompareBasedOn.BEST_BATTING_AND_BOWLING_AVG,
+                this.bestAllRounder);
 
     }
 }
