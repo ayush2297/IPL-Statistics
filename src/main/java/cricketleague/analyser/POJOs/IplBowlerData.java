@@ -37,9 +37,9 @@ public class IplBowlerData {
     public double strikeRate;
 
     @CsvBindByName (column = "4w", required = true)
-    public int fourWickets;
+    public double fourWickets;
 
     @CsvBindByName (column = "5w", required = true)
-    public int fiveWickets;
+    public double fiveWickets;
 
 }

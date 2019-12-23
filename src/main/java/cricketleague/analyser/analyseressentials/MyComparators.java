@@ -1,8 +1,6 @@
 package cricketleague.analyser.analyseressentials;
 
-import cricketleague.analyser.CricketLeagueAnalyser;
 import cricketleague.analyser.POJOs.IplPlayerDAO;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +9,8 @@ public class MyComparators {
 
     public enum CompareBasedOn {
         AVERAGE, STRIKE_RATE, SIX_AND_FOURS_HIT, STRIKE_RATE_WITH_6sn4s,
-        AVG_THEN_STRIKERATE, RUNS_THEN_AVG, BOWLING_AVG, BOWLING_SR
+        AVG_THEN_STRIKERATE, RUNS_THEN_AVG, BOWLING_AVG, BOWLING_SR,
+        BOWLING_ECONOMY, BOWLING_SR_WITH4WAND5W, BOWLING_SR_WITH_AVG
     }
     
     Comparator<IplPlayerDAO> strikeRateComparator =
@@ -39,6 +38,14 @@ public class MyComparators {
 
     Comparator<IplPlayerDAO> bowlingSR = Comparator.comparing(iplPlayerDAO -> iplPlayerDAO.bowlingStrikeRate);
 
+    Comparator<IplPlayerDAO> bowlingEconomy = Comparator.comparing(iplPlayerDAO -> iplPlayerDAO.bowlerEconomy);
+
+    Comparator<IplPlayerDAO> bowlingSRWith4n5W = Comparator.comparing(iplPlayerDAO -> ((
+            (iplPlayerDAO.bowler4Wickets*4)+(iplPlayerDAO.bowler5Wickets*5))/iplPlayerDAO.ballsBowled),Comparator.reverseOrder());
+
+    Comparator<IplPlayerDAO> bowlingSRWithAvg = Comparator.comparing(iplPlayerDAO ->
+            (iplPlayerDAO.bowlingAverage + iplPlayerDAO.bowlingStrikeRate));
+
     public Map<Enum, Comparator<IplPlayerDAO>> comparators = new HashMap<>();
 
     public MyComparators() {
@@ -58,5 +65,12 @@ public class MyComparators {
                 this.bowlerAvg);
         this.comparators.put(CompareBasedOn.BOWLING_SR,
                 this.bowlingSR);
+        this.comparators.put(CompareBasedOn.BOWLING_ECONOMY,
+                this.bowlingEconomy);
+        this.comparators.put(CompareBasedOn.BOWLING_SR_WITH4WAND5W,
+                this.bowlingSRWith4n5W);
+        this.comparators.put(CompareBasedOn.BOWLING_SR_WITH_AVG,
+                this.bowlingSRWithAvg);
+
     }
 }

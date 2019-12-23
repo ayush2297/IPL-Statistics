@@ -191,6 +191,45 @@ public class CricketLeagueAnalyserTest {
         }
     }
 
+    @Test
+    public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedBowlingEconomy_IfReturnsCorrectBowler_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER,BOWLING_CSV, "99");
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_ECONOMY);
+            IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
+            Assert.assertEquals("Shivam Dube",bowlerArray[0].playerName);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedOnBowlingSRWith4wAnd5w_IfReturnsCorrectBowler_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER,BOWLING_CSV, "99");
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_SR_WITH4WAND5W);
+            IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
+            Assert.assertEquals("Alzarri Joseph",bowlerArray[0].playerName);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedOnBowlingSRWithAvg_IfReturnsCorrectBowler_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER,BOWLING_CSV, "99");
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_SR_WITH_AVG);
+            IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
+            Assert.assertEquals("Anukul Roy",bowlerArray[0].playerName);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
 

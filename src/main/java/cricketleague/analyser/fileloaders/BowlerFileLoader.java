@@ -37,6 +37,10 @@ public class BowlerFileLoader extends CsvFileLoader{
         }
         iplPlayerDAO.bowlingAverage = iplBowlerData.averageRunsGiven;
         iplPlayerDAO.bowlingStrikeRate = iplBowlerData.strikeRate;
+        iplPlayerDAO.bowlerEconomy = iplBowlerData.economyRate;
+        iplPlayerDAO.bowler4Wickets = iplBowlerData.fourWickets;
+        iplPlayerDAO.bowler5Wickets = iplBowlerData.fiveWickets;
+        iplPlayerDAO.ballsBowled = (int) (Math.round(iplBowlerData.oversBowled)*6 + (iplBowlerData.oversBowled%6));
         iplPlayerDAO.bowlerDto = iplBowlerData;
     }
 }
