@@ -1,6 +1,7 @@
 package cricketleague.analyser;
 
 import com.google.gson.Gson;
+import cricketleague.analyser.POJOs.AllRounderDTO;
 import cricketleague.analyser.POJOs.IplBatsmanData;
 import cricketleague.analyser.POJOs.IplBowlerData;
 import cricketleague.analyser.analyseressentials.CricketLeagueAnalyserException;
@@ -245,13 +246,26 @@ public class CricketLeagueAnalyserTest {
     }
 
     @Test
-    public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedOnBestBattingAvgWithBestBowlingAvg_IfReturnsCorrectBowler_ShouldReturnTrue() {
+    public void givenCricketLeagueCsvFiles_AfterSortingBasedOnBestBattingAvgWithBestBowlingAvg_IfReturnsCorrectCricketer_ShouldReturnTrue() {
         try {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             leagueAnalyser.loadDataFromCsv(PlayerType.BOTH, BATTING_CSV, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BEST_BATTING_AND_BOWLING_AVG);
-            IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
-            Assert.assertEquals("Hardik Pandya",bowlerArray[0].playerName);
+            AllRounderDTO[] playerArray = new Gson().fromJson(sortBasedOnAvg,AllRounderDTO[].class);
+            Assert.assertEquals("Hardik Pandya",playerArray[0].playerName);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenCricketLeagueCsvFiles_AfterSortingBasedOnMostRunsAndMostWickets_IfReturnsCorrectCricketer_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.loadDataFromCsv(PlayerType.BOTH, BATTING_CSV, BOWLING_CSV);
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BEST_ALL_ROUNDER);
+            AllRounderDTO[] playerArray = new Gson().fromJson(sortBasedOnAvg,AllRounderDTO[].class);
+            Assert.assertEquals("Hardik Pandya",playerArray[0].playerName);
         } catch (CricketLeagueAnalyserException e) {
             e.printStackTrace();
         }

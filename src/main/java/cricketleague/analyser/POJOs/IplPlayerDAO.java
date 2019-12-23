@@ -3,7 +3,7 @@ package cricketleague.analyser.POJOs;
 public class IplPlayerDAO {
 
     public String playerName;
-    public int runsScored=0;
+    public int runsScored=1;
     public Double battingAverage =0.0;
     public Double battingStrikeRate=0.0;
     public int ballsFaced=0;
@@ -13,7 +13,7 @@ public class IplPlayerDAO {
     public double bowlingStrikeRate=99;
     public double bowlerEconomy=99;
     public double bowler5Wickets=0;
-    public int wicketsTaken=0;
+    public int wicketsTaken=1;
     public double bowler4Wickets=0;
     public int ballsBowled=999;
     public IplBatsmanData batsmanData;
@@ -24,7 +24,7 @@ public class IplPlayerDAO {
 
     public IplPlayerDAO(IplBatsmanData batsmanData) {
         this.playerName = batsmanData.playerName;
-        this.runsScored = batsmanData.runsScored;
+        this.runsScored = Math.max(this.runsScored,batsmanData.runsScored);
         this.battingAverage = batsmanData.battingAverage;
         this.battingStrikeRate = batsmanData.battingStrikeRate;
         this.ballsFaced = batsmanData.ballsFaced;
@@ -40,16 +40,8 @@ public class IplPlayerDAO {
         this.bowlerEconomy = iplBowlerData.economyRate;
         this.bowler4Wickets = iplBowlerData.fourWickets;
         this.bowler5Wickets = iplBowlerData.fiveWickets;
-        this.wicketsTaken = iplBowlerData.wicketsTaken;
+        this.wicketsTaken = Math.max(this.wicketsTaken,iplBowlerData.wicketsTaken);
         this.ballsBowled = (int) (Math.round(iplBowlerData.oversBowled)*6 + (iplBowlerData.oversBowled%6));
         this.bowlerData = iplBowlerData;
-    }
-
-    public IplBatsmanData getBatsmanData() {
-        return batsmanData;
-    }
-
-    public IplBowlerData getBowlerData() {
-         return bowlerData;
     }
 }

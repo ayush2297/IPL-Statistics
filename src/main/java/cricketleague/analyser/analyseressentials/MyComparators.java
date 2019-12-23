@@ -12,7 +12,7 @@ public class MyComparators {
         AVERAGE, STRIKE_RATE, SIX_AND_FOURS_HIT, STRIKE_RATE_WITH_6sn4s,
         AVG_THEN_STRIKERATE, RUNS_THEN_AVG, BOWLING_AVG, BOWLING_SR,
         BOWLING_ECONOMY, BOWLING_SR_WITH4WAND5W, BOWLING_SR_WITH_AVG,
-        BOWLING_MOSTWKTS_WITH_AVG, BEST_BATTING_AND_BOWLING_AVG
+        BOWLING_MOSTWKTS_WITH_AVG, BEST_BATTING_AND_BOWLING_AVG, BEST_ALL_ROUNDER
     }
 
     Comparator<IplPlayerDAO> strikeRateComparator =
@@ -51,8 +51,11 @@ public class MyComparators {
     Comparator<IplPlayerDAO> bowlingWktsWithAvg = Comparator.comparing(iplPlayerDAO ->
             (iplPlayerDAO.wicketsTaken / iplPlayerDAO.bowlingAverage), Comparator.reverseOrder());
 
-    Comparator<IplPlayerDAO> bestAllRounder = Comparator.comparing(iplPlayerDAO ->
+    Comparator<IplPlayerDAO> bestAllRounderAvg = Comparator.comparing(iplPlayerDAO ->
             (iplPlayerDAO.battingAverage / iplPlayerDAO.bowlingAverage), Comparator.reverseOrder());
+
+    Comparator<IplPlayerDAO> bestAllRounder = Comparator.comparing(iplPlayerDAO ->
+            (iplPlayerDAO.runsScored * iplPlayerDAO.wicketsTaken), Comparator.reverseOrder());
 
     public Map<Enum, Comparator<IplPlayerDAO>> comparators = new HashMap<>();
 
@@ -82,6 +85,8 @@ public class MyComparators {
         this.comparators.put(CompareBasedOn.BOWLING_MOSTWKTS_WITH_AVG,
                 this.bowlingWktsWithAvg);
         this.comparators.put(CompareBasedOn.BEST_BATTING_AND_BOWLING_AVG,
+                this.bestAllRounderAvg);
+        this.comparators.put(CompareBasedOn.BEST_ALL_ROUNDER,
                 this.bestAllRounder);
 
     }

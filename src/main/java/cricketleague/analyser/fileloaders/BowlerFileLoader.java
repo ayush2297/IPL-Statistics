@@ -43,7 +43,7 @@ public class BowlerFileLoader extends CsvFileLoader{
         iplPlayerDAO.bowlerEconomy = iplBowlerData.economyRate;
         iplPlayerDAO.bowler4Wickets = iplBowlerData.fourWickets;
         iplPlayerDAO.bowler5Wickets = iplBowlerData.fiveWickets;
-        iplPlayerDAO.wicketsTaken = iplBowlerData.wicketsTaken;
+        iplPlayerDAO.wicketsTaken = Math.max(iplPlayerDAO.wicketsTaken,iplBowlerData.wicketsTaken);
         iplPlayerDAO.ballsBowled = (int) (Math.round(iplBowlerData.oversBowled)*6 + (iplBowlerData.oversBowled%6));
         iplPlayerDAO.bowlerData = iplBowlerData;
     }
