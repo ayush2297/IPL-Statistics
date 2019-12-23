@@ -49,5 +49,4 @@ public class CricketLeagueAnalyser {
         String sortedString = new Gson().toJson(sortedDtoList);
         return sortedString;
     }
-
 }
