@@ -1,9 +1,9 @@
-package cricketleague.analyser;
+package cricketleague.analyser.POJOs;
 
 import com.opencsv.bean.CsvBindByName;
 
 public class IplBowlerData {
-    @CsvBindByName (column = "\uFEFFPOS", required = true)
+    @CsvBindByName (column = "POS", required = true)
     public int position;
 
     @CsvBindByName (column = "PLAYER", required = true)
@@ -16,7 +16,7 @@ public class IplBowlerData {
     public int inningsPlayed;
 
     @CsvBindByName (column = "Ov", required = true)
-    public int oversBowled;
+    public double oversBowled;
 
     @CsvBindByName (column = "Runs", required = true)
     public int runsScored;
@@ -28,13 +28,13 @@ public class IplBowlerData {
     public int bestBowlingInnings;
 
     @CsvBindByName (column = "Avg", required = true)
-    public int averageRunsGiven;
+    public double averageRunsGiven;
 
     @CsvBindByName (column = "Econ", required = true)
-    public int economyRate;
+    public double economyRate;
 
     @CsvBindByName (column = "SR", required = true)
-    public int strikeRate;
+    public double strikeRate;
 
     @CsvBindByName (column = "4w", required = true)
     public int fourWickets;

@@ -1,4 +1,7 @@
-package cricketleague.analyser;
+package cricketleague.analyser.fileloaders;
+
+import cricketleague.analyser.analyseressentials.CricketLeagueAnalyserException;
+import cricketleague.analyser.analyseressentials.PlayerType;
 
 public class FileLoaderFactory {
     public static CsvFileLoader getAdapter(PlayerType playerType) throws CricketLeagueAnalyserException {

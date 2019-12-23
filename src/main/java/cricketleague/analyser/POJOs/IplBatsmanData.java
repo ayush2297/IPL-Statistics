@@ -1,4 +1,4 @@
-package cricketleague.analyser;
+package cricketleague.analyser.POJOs;
 
 import com.opencsv.bean.CsvBindByName;
 

@@ -1,4 +1,4 @@
-package cricketleague.analyser;
+package cricketleague.analyser.analyseressentials;
 
 public enum PlayerType {
     BATSMAN, BOWLER, OTHER

@@ -1,4 +1,4 @@
-package cricketleague.analyser;
+package cricketleague.analyser.analyseressentials;
 
 public class CricketLeagueAnalyserException extends Exception{
     public enum ExceptionType {

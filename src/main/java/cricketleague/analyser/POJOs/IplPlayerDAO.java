@@ -1,6 +1,6 @@
-package cricketleague.analyser;
+package cricketleague.analyser.POJOs;
 
-public class IplBatsmanDAO {
+public class IplPlayerDAO {
 
     public String playerName;
     public int runsScored=0;
@@ -11,11 +11,12 @@ public class IplBatsmanDAO {
     public int sixes=0;
     public double bowlingAverage=99;
     public IplBatsmanData batsmanData;
+    public IplBowlerData bowlerDto;
 
-    public IplBatsmanDAO() {
+    public IplPlayerDAO() {
     }
 
-    public IplBatsmanDAO(IplBatsmanData batsmanData) {
+    public IplPlayerDAO(IplBatsmanData batsmanData) {
         this.playerName = batsmanData.playerName;
         this.runsScored = batsmanData.runsScored;
         this.averageScore = batsmanData.averageScore;
@@ -26,12 +27,17 @@ public class IplBatsmanDAO {
         this.batsmanData = batsmanData;
     }
 
-    public IplBatsmanDAO(IplBowlerData iplBowlerData) {
-
+    public IplPlayerDAO(IplBowlerData iplBowlerData) {
+        this.playerName = iplBowlerData.playerName;
+        this.bowlingAverage = iplBowlerData.averageRunsGiven;
+        this.bowlerDto = iplBowlerData;
     }
 
     public IplBatsmanData getBatsmanData() {
         return batsmanData;
     }
 
+    public IplBowlerData getBowlerDto() {
+         return bowlerDto;
+    }
 }

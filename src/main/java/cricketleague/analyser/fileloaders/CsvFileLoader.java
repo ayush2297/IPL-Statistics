@@ -1,14 +1,16 @@
-package cricketleague.analyser;
+package cricketleague.analyser.fileloaders;
 
 import com.myopencsv.CsvBuilderFactory;
 import com.myopencsv.ICsvBuilder;
 import com.myopencsv.OpenCsvException;
+import cricketleague.analyser.POJOs.IplPlayerDAO;
+import cricketleague.analyser.analyseressentials.CricketLeagueAnalyserException;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,7 @@ import java.util.stream.Stream;
 
 public abstract class CsvFileLoader {
 
-    public abstract Map<String,IplBatsmanDAO> loadCsv(String csvFilePath, String replaceMissingValuesWith) throws CricketLeagueAnalyserException;
+    public abstract Map<String, IplPlayerDAO> loadCsv(String csvFilePath, String replaceMissingValuesWith) throws CricketLeagueAnalyserException;
     Reader reader = null;
     public <E> Iterable<E> getCsvIterable(Class<E> clazz, String csvFilePath, String replaceWrongValuesWith) throws CricketLeagueAnalyserException {
         try {
