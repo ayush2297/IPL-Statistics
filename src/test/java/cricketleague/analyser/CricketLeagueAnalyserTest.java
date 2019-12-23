@@ -231,5 +231,32 @@ public class CricketLeagueAnalyserTest {
     }
 
 
+    @Test
+    public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedOnMostWicketsWithBestBowlingAvg_IfReturnsCorrectBowler_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER,BOWLING_CSV, "99");
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_MOSTWKTS_WITH_AVG);
+            IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
+            Assert.assertEquals("Kagiso Rabada",bowlerArray[0].playerName);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedOnBestBattingAvgWithBestBowlingAvg_IfReturnsCorrectBowler_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER,BOWLING_CSV, "99");
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BEST_BATTING_AND_BOWLING_AVG);
+            IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
+            Assert.assertEquals("Kagiso Rabada",bowlerArray[0].playerName);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 
