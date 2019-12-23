@@ -36,6 +36,7 @@ public class BowlerFileLoader extends CsvFileLoader{
             return;
         }
         iplPlayerDAO.bowlingAverage = iplBowlerData.averageRunsGiven;
+        iplPlayerDAO.bowlingStrikeRate = iplBowlerData.strikeRate;
         iplPlayerDAO.bowlerDto = iplBowlerData;
     }
 }

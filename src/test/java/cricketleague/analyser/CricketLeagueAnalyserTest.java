@@ -166,7 +166,7 @@ public class CricketLeagueAnalyserTest {
     }
 
     @Test
-    public void givenCricketLeagueCsvFile_AfterSortingBasedBowlingAvg_IfReturnsCorrectBowler_ShouldReturnTrue() {
+    public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedBowlingAvg_IfReturnsCorrectBowler_ShouldReturnTrue() {
         try {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER,BOWLING_CSV, "99");
@@ -177,5 +177,20 @@ public class CricketLeagueAnalyserTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedBowlingStrikeRate_IfReturnsCorrectBowler_ShouldReturnTrue() {
+        try {
+            CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
+            leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER,BOWLING_CSV, "99");
+            String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_SR);
+            IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
+            Assert.assertEquals("Alzarri Joseph",bowlerArray[0].playerName);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 

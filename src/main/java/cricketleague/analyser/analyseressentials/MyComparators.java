@@ -11,7 +11,7 @@ public class MyComparators {
 
     public enum CompareBasedOn {
         AVERAGE, STRIKE_RATE, SIX_AND_FOURS_HIT, STRIKE_RATE_WITH_6sn4s,
-        AVG_THEN_STRIKERATE, RUNS_THEN_AVG, BOWLING_AVG
+        AVG_THEN_STRIKERATE, RUNS_THEN_AVG, BOWLING_AVG, BOWLING_SR
     }
     
     Comparator<IplPlayerDAO> strikeRateComparator =
@@ -37,6 +37,8 @@ public class MyComparators {
 
     Comparator<IplPlayerDAO> bowlerAvg = Comparator.comparing(iplPlayerDAO -> iplPlayerDAO.bowlingAverage);
 
+    Comparator<IplPlayerDAO> bowlingSR = Comparator.comparing(iplPlayerDAO -> iplPlayerDAO.bowlingStrikeRate);
+
     public Map<Enum, Comparator<IplPlayerDAO>> comparators = new HashMap<>();
 
     public MyComparators() {
@@ -54,5 +56,7 @@ public class MyComparators {
                 this.runsThenAverageComparator);
         this.comparators.put(CompareBasedOn.BOWLING_AVG,
                 this.bowlerAvg);
+        this.comparators.put(CompareBasedOn.BOWLING_SR,
+                this.bowlingSR);
     }
 }

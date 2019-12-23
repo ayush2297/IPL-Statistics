@@ -10,6 +10,7 @@ public class IplPlayerDAO {
     public int fours=0;
     public int sixes=0;
     public double bowlingAverage=99;
+    public double bowlingStrikeRate;
     public IplBatsmanData batsmanData;
     public IplBowlerData bowlerDto;
 
@@ -30,6 +31,7 @@ public class IplPlayerDAO {
     public IplPlayerDAO(IplBowlerData iplBowlerData) {
         this.playerName = iplBowlerData.playerName;
         this.bowlingAverage = iplBowlerData.averageRunsGiven;
+        this.bowlingStrikeRate = iplBowlerData.strikeRate;
         this.bowlerDto = iplBowlerData;
     }
 
