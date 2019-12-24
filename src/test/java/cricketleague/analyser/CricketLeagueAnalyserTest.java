@@ -8,9 +8,7 @@ import cricketleague.analyser.POJOs.IplPlayerDAO;
 import cricketleague.analyser.analyseressentials.CricketLeagueAnalyserException;
 import cricketleague.analyser.analyseressentials.MyComparators;
 import cricketleague.analyser.analyseressentials.PlayerType;
-import cricketleague.analyser.fileloaders.BatsmenFileLoader;
-import cricketleague.analyser.fileloaders.BowlerFileLoader;
-import cricketleague.analyser.fileloaders.LoadBowlingAndBattingData;
+import cricketleague.analyser.fileloaders.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,10 +22,6 @@ public class CricketLeagueAnalyserTest {
     public static final String BATTING_CSV_WITH_HEADER_ERROR = "./src/test/resources/battingSampleWithHeaderErr.csv";
     public static final String BOWLING_CSV = "./src/test/resources/bowling_sample.csv";
     public static final String INCORRECT_FILE = "./src/test/resources/battingSample1.csv";
-    BatsmenFileLoader mockedBatsmenFileLoader = mock(BatsmenFileLoader.class);
-    BowlerFileLoader mockedBowlerFileLoader = mock(BowlerFileLoader.class);
-    LoadBowlingAndBattingData mockedBothFileLoader = mock(LoadBowlingAndBattingData.class);
-    MyComparators mockedComparator = mock(MyComparators.class);
     private HashMap<String, IplPlayerDAO> expectedBattingMap;
     private HashMap<String, IplPlayerDAO> expectedBowlingMap;
     private HashMap<String,IplPlayerDAO> expectedAllRounderMap;
@@ -73,12 +67,13 @@ public class CricketLeagueAnalyserTest {
             put("Shivam Dubey",new IplPlayerDAO(sd));
         }};
     }
+
     @Test
     public void givenCricketLeagueCsvFile_IfHasCorrectNumberOfRecords_ShouldReturnTrue() {
         try {
-            when(this.mockedBatsmenFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBatsmenFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
+            when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             int numberOfRecords = leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             Assert.assertEquals(5, numberOfRecords);
         } catch (CricketLeagueAnalyserException e) {
@@ -89,9 +84,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueCsvFile_AfterSortingBasedOnBattingAverage_IfReturnsCorrectBatsman_ShouldReturnTrue() {
         try {
-            when(this.mockedBatsmenFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBatsmenFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
+            when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.AVERAGE);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
@@ -104,9 +99,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueCsvFile_AfterSortingBasedOnBoundariesHit_IfReturnsCorrectBatsman_ShouldReturnTrue() {
         try {
-            when(this.mockedBatsmenFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBatsmenFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
+            when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.AVERAGE);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
@@ -119,9 +114,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueCsvFile_AfterSortingBasedOnStrikeRate_IfReturnsCorrectBatsman_ShouldReturnTrue() {
         try {
-            when(this.mockedBatsmenFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBatsmenFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
+            when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.SIX_AND_FOURS_HIT);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
@@ -134,9 +129,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueCsvFile_AfterSortingBasedOnStrikeRate_WithRespectTo6sAnd4s_IfReturnsCorrectBatsman_ShouldReturnTrue() {
         try {
-            when(this.mockedBatsmenFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBatsmenFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
+            when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.STRIKE_RATE_WITH_6sn4s);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
@@ -149,9 +144,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueCsvFile_AfterSortingBasedOnAvg_AndThenStrikeRate_IfReturnsCorrectBatsman_ShouldReturnTrue() {
         try {
-            when(this.mockedBatsmenFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBatsmenFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
+            when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.AVG_THEN_STRIKERATE);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
@@ -164,9 +159,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueCsvFile_AfterSortingBasedOnRuns_AndThenAvg_IfReturnsCorrectBatsman_ShouldReturnTrue() {
         try {
-            when(this.mockedBatsmenFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBatsmenFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
+            when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.RUNS_THEN_AVG);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
@@ -179,9 +174,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueBowlingCsvFile_WhenLoaded_ShouldReturnCorrectNumberOfRecords() {
         try {
-            when(this.mockedBowlerFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBowlerFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
+            when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             int numberOfRecords = leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             Assert.assertEquals(6, numberOfRecords);
         } catch (CricketLeagueAnalyserException e) {
@@ -192,9 +187,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedBowlingAvg_IfReturnsCorrectBowler_ShouldReturnTrue() {
         try {
-            when(this.mockedBowlerFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBowlerFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
+            when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_AVG);
             IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
@@ -207,9 +202,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedBowlingStrikeRate_IfReturnsCorrectBowler_ShouldReturnTrue() {
         try {
-            when(this.mockedBowlerFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBowlerFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
+            when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_SR);
             IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
@@ -222,9 +217,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedBowlingEconomy_IfReturnsCorrectBowler_ShouldReturnTrue() {
         try {
-            when(this.mockedBowlerFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBowlerFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
+            when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_ECONOMY);
             IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
@@ -237,9 +232,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedOnBowlingSRWith4wAnd5w_IfReturnsCorrectBowler_ShouldReturnTrue() {
         try {
-            when(this.mockedBowlerFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBowlerFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
+            when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_SR_WITH4WAND5W);
             IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
@@ -252,9 +247,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedOnBowlingSRWithAvg_IfReturnsCorrectBowler_ShouldReturnTrue() {
         try {
-            when(this.mockedBowlerFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBowlerFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
+            when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_SR_WITH_AVG);
             IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
@@ -268,9 +263,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueBowlingCsvFile_AfterSortingBasedOnMostWicketsWithBestBowlingAvg_IfReturnsCorrectBowler_ShouldReturnTrue() {
         try {
-            when(this.mockedBowlerFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBowlerFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
+            when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_MOSTWKTS_WITH_AVG);
             IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
@@ -283,9 +278,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueCsvFiles_AfterSortingBasedOnBestBattingAvgWithBestBowlingAvg_IfReturnsCorrectCricketer_ShouldReturnTrue() {
         try {
-            when(this.mockedBothFileLoader.loadCsv(BATTING_CSV,BOWLING_CSV)).thenReturn(this.expectedAllRounderMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBothFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOTH).getClass());
+            when(csvFileLoader.loadCsv(BATTING_CSV,BOWLING_CSV)).thenReturn(this.expectedAllRounderMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOTH, BATTING_CSV, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BEST_BATTING_AND_BOWLING_AVG);
             AllRounderDTO[] playerArray = new Gson().fromJson(sortBasedOnAvg,AllRounderDTO[].class);
@@ -298,9 +293,9 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketLeagueCsvFiles_AfterSortingBasedOnMostRunsAndMostWickets_IfReturnsCorrectCricketer_ShouldReturnTrue() {
         try {
-            when(this.mockedBothFileLoader.loadCsv(BATTING_CSV,BOWLING_CSV)).thenReturn(this.expectedAllRounderMap);
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
-            leagueAnalyser.setMockedAdapter(this.mockedBothFileLoader);
+            CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOTH).getClass());
+            when(csvFileLoader.loadCsv(BATTING_CSV,BOWLING_CSV)).thenReturn(this.expectedAllRounderMap);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOTH, BATTING_CSV, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BEST_ALL_ROUNDER);
             AllRounderDTO[] playerArray = new Gson().fromJson(sortBasedOnAvg,AllRounderDTO[].class);

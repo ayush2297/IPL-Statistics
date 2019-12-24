@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import cricketleague.analyser.fileloaders.CsvFileLoader;
 import cricketleague.analyser.fileloaders.FileLoaderFactory;
 import cricketleague.analyser.POJOs.IplPlayerDAO;
-import cricketleague.analyser.POJOs.IplBatsmanData;
 import cricketleague.analyser.analyseressentials.CricketLeagueAnalyserException;
 import cricketleague.analyser.analyseressentials.MyComparators;
 import cricketleague.analyser.analyseressentials.PlayerType;
@@ -25,6 +24,7 @@ public class CricketLeagueAnalyser {
     public int loadDataFromCsv(PlayerType playerType, String... csvFilePath) throws CricketLeagueAnalyserException {
         this.playerType = playerType;
 //        CsvFileLoader csvFileLoader = FileLoaderFactory.getAdapter(playerType);
+        this.mockedLoader = this.getFactoryObject(playerType);
         this.playersList = this.mockedLoader.loadCsv(csvFilePath);
         return playersList.size();
     }
@@ -43,7 +43,11 @@ public class CricketLeagueAnalyser {
         return sortedString;
     }
 
-    public void setMockedAdapter(CsvFileLoader mockedFileLoader) {
-        this.mockedLoader = mockedFileLoader;
+    public CsvFileLoader getFactoryObject(PlayerType playerType) {
+        try {
+            return FileLoaderFactory.getAdapter(playerType);
+        } catch (CricketLeagueAnalyserException e) {
+            return null;
+        }
     }
 }
