@@ -74,6 +74,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
             when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             int numberOfRecords = leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             Assert.assertEquals(5, numberOfRecords);
         } catch (CricketLeagueAnalyserException e) {
@@ -87,6 +88,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
             when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.AVERAGE);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
@@ -102,6 +104,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
             when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.AVERAGE);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
@@ -117,6 +120,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
             when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.SIX_AND_FOURS_HIT);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
@@ -132,6 +136,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
             when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.STRIKE_RATE_WITH_6sn4s);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
@@ -147,6 +152,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
             when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.AVG_THEN_STRIKERATE);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
@@ -162,6 +168,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BATSMAN).getClass());
             when(csvFileLoader.loadCsv(BATTING_CSV)).thenReturn(this.expectedBattingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BATSMAN, BATTING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.RUNS_THEN_AVG);
             IplBatsmanData[] batsmenArray = new Gson().fromJson(sortBasedOnAvg,IplBatsmanData[].class);
@@ -177,6 +184,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
             when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             int numberOfRecords = leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             Assert.assertEquals(6, numberOfRecords);
         } catch (CricketLeagueAnalyserException e) {
@@ -190,6 +198,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
             when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_AVG);
             IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
@@ -205,6 +214,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
             when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_SR);
             IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
@@ -220,6 +230,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
             when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_ECONOMY);
             IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
@@ -235,6 +246,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
             when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_SR_WITH4WAND5W);
             IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
@@ -250,6 +262,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
             when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_SR_WITH_AVG);
             IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
@@ -266,6 +279,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOWLER).getClass());
             when(csvFileLoader.loadCsv(BOWLING_CSV)).thenReturn(this.expectedBowlingMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOWLER, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BOWLING_MOSTWKTS_WITH_AVG);
             IplBowlerData[] bowlerArray = new Gson().fromJson(sortBasedOnAvg,IplBowlerData[].class);
@@ -281,6 +295,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOTH).getClass());
             when(csvFileLoader.loadCsv(BATTING_CSV,BOWLING_CSV)).thenReturn(this.expectedAllRounderMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOTH, BATTING_CSV, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BEST_BATTING_AND_BOWLING_AVG);
             AllRounderDTO[] playerArray = new Gson().fromJson(sortBasedOnAvg,AllRounderDTO[].class);
@@ -296,6 +311,7 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser leagueAnalyser = new CricketLeagueAnalyser();
             CsvFileLoader csvFileLoader = mock(leagueAnalyser.getFactoryObject(PlayerType.BOTH).getClass());
             when(csvFileLoader.loadCsv(BATTING_CSV,BOWLING_CSV)).thenReturn(this.expectedAllRounderMap);
+            leagueAnalyser.setAdapter(csvFileLoader);
             leagueAnalyser.loadDataFromCsv(PlayerType.BOTH, BATTING_CSV, BOWLING_CSV);
             String sortBasedOnAvg = leagueAnalyser.sortBasedOn(MyComparators.CompareBasedOn.BEST_ALL_ROUNDER);
             AllRounderDTO[] playerArray = new Gson().fromJson(sortBasedOnAvg,AllRounderDTO[].class);
@@ -304,7 +320,6 @@ public class CricketLeagueAnalyserTest {
             e.printStackTrace();
         }
     }
-
 
 }
 

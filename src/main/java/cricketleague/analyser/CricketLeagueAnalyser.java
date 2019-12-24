@@ -15,7 +15,7 @@ public class CricketLeagueAnalyser {
 
     private PlayerType playerType;
     public Map<String, IplPlayerDAO> playersList;
-    private CsvFileLoader mockedLoader;
+    private CsvFileLoader fileLoader;
 
     public CricketLeagueAnalyser() {
         this.playersList = new HashMap<>();
@@ -23,9 +23,7 @@ public class CricketLeagueAnalyser {
 
     public int loadDataFromCsv(PlayerType playerType, String... csvFilePath) throws CricketLeagueAnalyserException {
         this.playerType = playerType;
-//        CsvFileLoader csvFileLoader = FileLoaderFactory.getAdapter(playerType);
-        this.mockedLoader = this.getFactoryObject(playerType);
-        this.playersList = this.mockedLoader.loadCsv(csvFilePath);
+        this.playersList = this.fileLoader.loadCsv(csvFilePath);
         return playersList.size();
     }
 
@@ -49,5 +47,9 @@ public class CricketLeagueAnalyser {
         } catch (CricketLeagueAnalyserException e) {
             return null;
         }
+    }
+
+    public void setAdapter(CsvFileLoader mockedLoader) {
+        this.fileLoader = mockedLoader;
     }
 }
