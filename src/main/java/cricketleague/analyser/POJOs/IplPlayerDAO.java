@@ -41,7 +41,27 @@ public class IplPlayerDAO {
         this.bowler4Wickets = iplBowlerData.fourWickets;
         this.bowler5Wickets = iplBowlerData.fiveWickets;
         this.wicketsTaken = Math.max(this.wicketsTaken,iplBowlerData.wicketsTaken);
-        this.ballsBowled = (int) (Math.round(iplBowlerData.oversBowled)*6 + (iplBowlerData.oversBowled%6));
+        this.ballsBowled = (int) (Math.round(iplBowlerData.oversBowled)*6 + ((iplBowlerData.oversBowled*10)%10));
+        this.bowlerData = iplBowlerData;
+    }
+
+    public IplPlayerDAO(IplBatsmanData batsmanData, IplBowlerData iplBowlerData) {
+        this.playerName = batsmanData.playerName;
+        this.runsScored = Math.max(this.runsScored,batsmanData.runsScored);
+        this.battingAverage = batsmanData.battingAverage;
+        this.battingStrikeRate = batsmanData.battingStrikeRate;
+        this.ballsFaced = batsmanData.ballsFaced;
+        this.fours = batsmanData.fours;
+        this.sixes = batsmanData.sixes;
+        this.batsmanData = batsmanData;
+        this.playerName = iplBowlerData.playerName;
+        this.bowlingAverage = iplBowlerData.averageRunsGiven;
+        this.bowlingStrikeRate = iplBowlerData.bowlingStrikeRate;
+        this.bowlerEconomy = iplBowlerData.economyRate;
+        this.bowler4Wickets = iplBowlerData.fourWickets;
+        this.bowler5Wickets = iplBowlerData.fiveWickets;
+        this.wicketsTaken = Math.max(this.wicketsTaken,iplBowlerData.wicketsTaken);
+        this.ballsBowled = (int) (Math.round(iplBowlerData.oversBowled)*6 + ((iplBowlerData.oversBowled*10)%10));
         this.bowlerData = iplBowlerData;
     }
 }

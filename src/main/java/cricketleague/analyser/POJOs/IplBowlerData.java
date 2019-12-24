@@ -42,4 +42,17 @@ public class IplBowlerData {
     @CsvBindByName (column = "5w", required = true)
     public double fiveWickets;
 
+    public IplBowlerData(String playerName, double averageRunsGiven, double bowlingStrikeRate, double economyRate, double fourWickets, double fiveWickets, int wicketsTaken, double oversBowled) {
+        this.playerName = playerName;
+        this.wicketsTaken = wicketsTaken;
+        this.averageRunsGiven = averageRunsGiven;
+        this.economyRate = economyRate;
+        this.bowlingStrikeRate = bowlingStrikeRate;
+        this.fourWickets = fourWickets;
+        this.fiveWickets = fiveWickets;
+        this.oversBowled = oversBowled;
+    }
+
+    public IplBowlerData() {
+    }
 }

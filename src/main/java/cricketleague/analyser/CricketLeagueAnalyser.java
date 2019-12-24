@@ -16,7 +16,7 @@ public class CricketLeagueAnalyser {
 
     private PlayerType playerType;
     public Map<String, IplPlayerDAO> playersList;
-
+    private CsvFileLoader mockedLoader;
 
     public CricketLeagueAnalyser() {
         this.playersList = new HashMap<>();
@@ -24,16 +24,16 @@ public class CricketLeagueAnalyser {
 
     public int loadDataFromCsv(PlayerType playerType, String... csvFilePath) throws CricketLeagueAnalyserException {
         this.playerType = playerType;
-        CsvFileLoader csvFileLoader = FileLoaderFactory.getAdapter(playerType);
-        this.playersList = csvFileLoader.loadCsv(csvFilePath);
+//        CsvFileLoader csvFileLoader = FileLoaderFactory.getAdapter(playerType);
+        this.playersList = this.mockedLoader.loadCsv(csvFilePath);
         return playersList.size();
     }
 
     public String sortBasedOn(MyComparators.CompareBasedOn comparingField) {
-        MyComparators compareWith = new MyComparators();
+        MyComparators comparator = new MyComparators();
         ArrayList<IplPlayerDAO> sortedList = this.playersList
                         .values().stream()
-                        .sorted(compareWith.comparators.get(comparingField))
+                        .sorted(comparator.getComparator(comparingField))
                         .collect(toCollection(ArrayList::new));
         ArrayList sortedDtoList = new ArrayList<>();
         for (IplPlayerDAO playerDAO : sortedList) {
@@ -41,5 +41,9 @@ public class CricketLeagueAnalyser {
         }
         String sortedString = new Gson().toJson(sortedDtoList);
         return sortedString;
+    }
+
+    public void setMockedAdapter(CsvFileLoader mockedFileLoader) {
+        this.mockedLoader = mockedFileLoader;
     }
 }

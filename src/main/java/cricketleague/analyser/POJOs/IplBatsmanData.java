@@ -46,4 +46,17 @@ public class IplBatsmanData {
     @CsvBindByName (column = "6s", required = true)
     public int sixes;
 
+    public IplBatsmanData(String playerName, int runsScored, Double battingAverage, Double battingStrikeRate, int ballsFaced, int fours, int sixes) {
+        this.playerName = playerName;
+        this.runsScored = runsScored;
+        this.battingAverage = battingAverage;
+        this.battingStrikeRate = battingStrikeRate;
+        this.ballsFaced = ballsFaced;
+        this.fifties = fifties;
+        this.fours = fours;
+        this.sixes = sixes;
+    }
+
+    public IplBatsmanData() {
+    }
 }

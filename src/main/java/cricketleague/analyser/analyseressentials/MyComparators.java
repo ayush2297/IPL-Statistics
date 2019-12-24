@@ -88,6 +88,9 @@ public class MyComparators {
                 this.bestAllRounderAvg);
         this.comparators.put(CompareBasedOn.BEST_ALL_ROUNDER,
                 this.bestAllRounder);
+    }
 
+    public Comparator<IplPlayerDAO> getComparator(CompareBasedOn type){
+        return this.comparators.get(type);
     }
 }
